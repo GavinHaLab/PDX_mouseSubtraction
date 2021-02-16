@@ -6,3 +6,11 @@ Jo, S.-Y., Kim, E. & Kim, S. Impact of mouse contamination in genomic profiling 
 
 mod_pipe_ConcatRef.sh
 This is a copy of pipe_ConcatRef.sh that I modified to work with our data and with hg38
+
+
+concatenate_GRCh38_plus_NCBI_GRCm38.py 
+This creates the concatRef Fasta file.
+
+After creating the new fasta, you also need to create a new BWA index:
+ml BWA/0.7.17-foss-2016b
+bwa index GRCh38_plus_NCBI_GRCm38.fa 
