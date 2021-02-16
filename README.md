@@ -35,12 +35,14 @@ Second, to perform the mouse subtraction, I used the script here:
     See scripts/read_me.txt for more details 
 
 
-Third, I made a snakemake:
+Third, I made a snakemake (this repository is a copy of that snakemake):
 
     This snakemake removes unpaired reads, unmaps from the previous genome, remaps to concatRef, sorts the bam, indexes the bam, then subtracts mouse, and finally runs samtools idxstats (to get an idea of the percent mouse for each sample). The snakemake is located here:
 
 
     /fh/fast/ha_g/user/adoebley/ha_lab_scripts/src/snakemakes/unmap_and_subtract_mouse_snakemake
+    
+    To run the snakemake, update the config files then follow the directions at the top of the snakefile. 
 
     This snakemake outputs two bam files:
     sample_name_ConcatRef_sorted.bam (an intermediate file containing reads aligned to the concat_ref)
