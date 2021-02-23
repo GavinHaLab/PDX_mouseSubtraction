@@ -24,10 +24,10 @@ map_to_ConcatRef:
     mem: 12G
     ncpus: 4
 
-# map_to_reference:
-#     time: "48:0:0"
-#     mem: 12G
-#     ncpus: 4
+map_to_reference:
+    time: "48:0:0"
+    mem: 12G
+    ncpus: 4
 
 sort_by_coord:
     mem: 8G
