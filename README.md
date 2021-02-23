@@ -1,7 +1,8 @@
 ## This pipeline consists of two parts :
 
-    1) Unmap input BAM and subtract mouse reads ('unmap_and_subtract_mouse.snakefile')
-    2) Realign mouse reads removed edited bam to human reference genome ('realign_bam_paired.snakefile')
+    1) Prepare ConcatRef using ./scripts/concatenate_reference.py
+    2) Unmap input BAM and subtract mouse reads using 'unmap_and_subtract_mouse.snakefile'
+    3) Realign 'cleaned' bam with mouse reads removed to human reference genome using 'realign_bam_paired.snakefile'
     
     Please run 'unmap_and_subtract_mouse.snakefile' first and then run 'realign_bam_paired.snakefile' afterwards.
 
@@ -21,13 +22,13 @@ Second, run 'unmap_and_subtract_mouse.snakefile'
 
     This snakemake outputs two bam files:
     sample_name_ConcatRef_sorted.bam (an intermediate file containing reads aligned to the ConcatRef)
-    sample_name _ConcatRef_sorted.cleaned.bam ('cleaned' bam with mouse reads removed and mouse chromosomes removed from the header - this is the one you will want for the next step)
+    sample_name_ConcatRef_sorted.cleaned.bam ('cleaned' bam with mouse reads removed and mouse chromosomes removed from the header - this is the one you will want for the next step)
 
 
 Third, run 'realign_bam_paired.snakefile'
         
       After finish 'unmap_and_subtract_mouse.snakefile', the ‘cleaned.bam’ file needs to be realigned to the human reference. 
-      Realign the ‘cleaned’ bam to the human reference genome using the ‘realign_bam_paired_snakemake’. 
+      
       This is because the mouse subtraction snakemake produces an edited bam and I was unsure if this would work for tools that check the integrity of the bam file.
 
 
