@@ -1,4 +1,4 @@
-## This pipeline consists of two parts :
+## Pipeline overview
 
     1) Prepare ConcatRef using ./scripts/concatenate_reference.py
     2) Unmap input BAM and subtract mouse reads using 'unmap_and_subtract_mouse.snakefile'
