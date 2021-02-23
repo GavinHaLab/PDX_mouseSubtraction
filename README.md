@@ -6,7 +6,7 @@
     
     Please run 'unmap_and_subtract_mouse.snakefile' first and then run 'realign_bam_paired.snakefile' afterwards.
 
-## How to run pipeline:
+## How to run pipeline
 
 First, generate concatRef genome using this script
    
