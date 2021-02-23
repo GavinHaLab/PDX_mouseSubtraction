@@ -29,6 +29,6 @@ Third, run 'realign_bam_paired.snakefile'
         
       After finish 'unmap_and_subtract_mouse.snakefile', the ‘cleaned.bam’ file needs to be realigned to the human reference. 
       
-      This is because the mouse subtraction snakemake produces an edited bam and I was unsure if this would work for tools that check the integrity of the bam file.
+      This is because the mouse subtraction snakemake produces an edited bam and to ensure the integrity of the bam file.
 
 
