@@ -168,7 +168,7 @@ rule get_alignment_metrics:
 		java=config["java"],
 		picard_jar=config["picard_jar"]
 	log:
-		"logs/aligment_metrics/{samples}_get_alignment_metrics.txt"
+		"logs/realign_bam/aligment_metrics/{samples}_get_alignment_metrics.txt"
 	shell:
 		"({params.java} -jar {params.picard_jar} CollectAlignmentSummaryMetrics \
 		R={params.reference_genome} \
@@ -187,7 +187,7 @@ rule get_wgs_metrics:
 		java=config["java"],
 		picard_jar=config["picard_jar"]
 	log:
-		"logs/wgs_metrics/{samples}_get_wgs_metrics.txt"
+		"logs/realign_bam/wgs_metrics/{samples}_get_wgs_metrics.txt"
 	run:
 		if params.is_wgs:
 			shell("({params.java} -jar {params.picard_jar} CollectWgsMetrics \
