@@ -14,6 +14,8 @@ ml picard/2.18.29-Java
 
 #command to run snakemake (remove -np at end when done validating):
 snakemake -s unmap_and_subtract_mouse.snakefile --latency-wait 60 --restart-times 3 --keep-going --cluster-config config/cluster_slurm.yaml --cluster "sbatch -p {cluster.partition} --mem={cluster.mem} -t {cluster.time} -c {cluster.ncpus} -n {cluster.ntasks} -o {cluster.output} -J {cluster.JobName}" -j 40 -np
+
+#output file marked as temp is deleted after all rules that use it as an input are completed
 """
 
 configfile: "config/samples.yaml"
@@ -31,9 +33,9 @@ rule unmap:
 	input:
 		bam_file = lambda wildcards: config["samples"][wildcards.samples]
 	output:
-		fastq1 = "results/subtract_mouse/fastqs/{samples}_fastq1.fq.gz",
-		fastq2 = "results/subtract_mouse/fastqs/{samples}_fastq2.fq.gz",
-		unpaired_fastq = "results/subtract_mouse/fastqs/{samples}_unpaired.fq.gz"
+		fastq1 = temp("results/subtract_mouse/fastqs/{samples}_fastq1.fq.gz"),
+		fastq2 = temp("results/subtract_mouse/fastqs/{samples}_fastq2.fq.gz"),
+		unpaired_fastq = temp("results/subtract_mouse/fastqs/{samples}_unpaired.fq.gz")
 	params:
 		java=config["java"],
 		picard_jar = config["picard_jar"],
@@ -74,7 +76,8 @@ rule sort_by_coord:
 	input:
 		"results/subtract_mouse/{samples}/{samples}_ConcatRef_unsorted.bam"
 	output:
-		"results/subtract_mouse/{samples}/{samples}_ConcatRef_sorted.bam"
+		temp("results/subtract_mouse/{samples}/{samples}_ConcatRef_sorted.bam")
+		#"results/subtract_mouse/{samples}/{samples}_ConcatRef_sorted.bam"
 	params:
 		samtools=config["samtools"]
 	log:
@@ -86,7 +89,8 @@ rule index_bam:
 	input:
 		sorted_bam = "results/subtract_mouse/{samples}/{samples}_ConcatRef_sorted.bam"
 	output:
-		sorted_bam_index = "results/subtract_mouse/{samples}/{samples}_ConcatRef_sorted.bam.bai"
+		sorted_bam_index = temp("results/subtract_mouse/{samples}/{samples}_ConcatRef_sorted.bam.bai")
+		#sorted_bam_index = "results/subtract_mouse/{samples}/{samples}_ConcatRef_sorted.bam.bai"
 
 	params:
 		samtools=config["samtools"]
