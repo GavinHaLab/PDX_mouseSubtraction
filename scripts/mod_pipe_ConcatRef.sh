@@ -15,14 +15,13 @@ ID=${INPUT%%.bam*}
 # Extract hg38 aligned reads 
 
 #this command gets the input chromosomes from idxstats, cuts out the other columns, removes anything with _NCBI_GRCm38 or * 
-chr_list=$(samtools idxstats  $AlignedPath$INPUT | cut -f 1 | grep -v $tag | grep -v \* )
+chr_list=$(samtools idxstats  $AlignedPath$INPUT | cut -f 1 | grep -v $tag | grep -vw \* )
 
 echo $chr_list
 
 #AL note: this next line just takes all reads that aligned with the human genome and puts them in a new file
 #however it caused problems because there are pairs where one read is aligned to a normal chromosome and one is aligned to a 'junk chromosome' this lead to only a single read from the pair getting retained
 #to fix this, I altered the chrom list
-# samtools view -b $AlignedPath$INPUT chrM $chr_list chrX chrY > $AlignedPath$ID.human.bam #AL modified filenames to remove .hg19 and add .human_unfiltered
 samtools view -b $AlignedPath$INPUT $chr_list > $AlignedPath$ID.human.bam #AL modified filenames to remove .hg19 and add .human_unfiltered
 
 
