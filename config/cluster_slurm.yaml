@@ -10,7 +10,7 @@ __default__:
     mem: 4G
     ncpus: 1
     ntasks: 1
-    output: logs/cluster/{rule}.%A.out
+    output: logs/cluster/{rule}.{wildcards.samples}.%A.out
     JobName: "{rule}.{wildcards.samples}.%A"
 
 unmap:
@@ -24,29 +24,36 @@ map_to_ConcatRef:
     mem: 12G
     ncpus: 4
 
-map_to_reference:
+sort_concatRef_by_coord:
+    mem: 8G
+
+###
+unmap_cleaned:
+    partition: campus-new
+    mem: 72G
+    ncpus: 6
+    time: "72:0:0"
+
+map_to_human_ref:
     time: "48:0:0"
     mem: 12G
     ncpus: 4
 
-sort_by_coord:
+sort_by_coord_cleaned:
     mem: 8G
 
-mark_dups:
+mark_dups_cleaned:
     partition: campus-new
     mem: 72G
     ncpus: 6
 
-build_recalibrator_model:
+build_recalibrator_model_cleaned:
     mem: 8G
 
-apply_recalibration:
+apply_recalibration_cleaned:
     time: "48:0:0"
     mem: 8G
 
-rename_index_files:
+rename_index_files_cleaned:
     time: "1:0:0"
 
-#get_alignment_metrics:
-
-#get_wgs_metrics:

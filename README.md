@@ -1,34 +1,23 @@
 ## Pipeline overview
 
-    1) Prepare ConcatRef using ./scripts/concatenate_reference.py
-    2) Unmap input BAM and subtract mouse reads using 'unmap_and_subtract_mouse.snakefile'
-    3) Realign 'cleaned' bam with mouse reads removed to human reference genome using 'realign_bam_paired.snakefile'
-    
-    Please run 'unmap_and_subtract_mouse.snakefile' first and then run 'realign_bam_paired.snakefile' afterwards.
+    1) Prepare ConcatRef using ./scripts/concatenate_reference.py. 
+    2) Run subtract_mouse_and_realign.snakefile to unmap, subtract mouse, and realign the results (Separate realignment step no longer required)
 
 ## How to run pipeline
 
-First, generate concatRef genome using this script
+First, generate concatRef genome using this script (or use one of the existing concatRef files on fast)
    
     ./scripts/concatenate_reference.py
     
     Additional info and details about the ConcatRef is in the read_me file:
     ./scripts/read_me.txt
 
-Second, run 'unmap_and_subtract_mouse.snakefile'
-
-    This snakemake unmaps Input BAM and remaps to concatRef, sorts the bam, indexes the bam, then subtracts mouse, and finally runs samtools idxstats (to get an idea of the percent mouse for each sample). 
-    To run the snakemake, update the config files then follow the directions at the top of the snakefile. 
-
-    This snakemake outputs two bam files:
-    sample_name_ConcatRef_sorted.bam (an intermediate file containing reads aligned to the ConcatRef)
-    sample_name_ConcatRef_sorted.cleaned.bam ('cleaned' bam with mouse reads removed and mouse chromosomes removed from the header - this is the one you will want for the next step)
-
-
-Third, run 'realign_bam_paired.snakefile'
-        
-      After finish 'unmap_and_subtract_mouse.snakefile', the ‘cleaned.bam’ file needs to be realigned to the human reference. 
-      
-      This is because the mouse subtraction snakemake produces an edited bam and to ensure the integrity of the bam file.
-
+Second, run subtract_mouse_and_realign.snakefile to unmap, subtract mouse, and realign the results  
+    This snakemake unmaps Input BAM and remaps to concatRef, sorts the bam, indexes the bam, then subtracts mouse, realigns the results to the human genome, marks duplicates, performs base recalibration, and then produces assorted metrics. The final output will be <sample>_recalibrated.bam, this can be used for downstream analysis. 
+    
+    To run this step, there are 4 parameters that should be adjusted in the config:
+    	1. input_reference_genome - if your input is a cram file, the reference genome for this file is required. If you have a bam file use 'null'
+	2. ConcatRef_genome - the concatenated mouse+human genome produced by ./scripts/concatenate_reference.py
+	3. human_reference_genome - the version of the human reference genome that will be used for the final realignment (recommended, but not required, to be the same genome version as the human part of the concatRef)
+	4. tag - the suffix that is used to denote mouse chromosomes in the concatRef. Any read mapping to a chromosome containing this tag in the name will be removed.
 
