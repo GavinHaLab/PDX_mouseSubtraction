@@ -6,7 +6,7 @@
 #SELECT CORRECT REFERENCE GENOME
 #if the input is a cram file, specify the reference gnenome
 input_reference_genome: /fh/fast/ha_g/grp/reference/GRCh38/Broad_bundle_hg38/v0/Homo_sapiens_assembly38.fasta
-#input_reference_genome: null #for bam file input
+#input_reference_genome: 'null' #for bam file input
 
 #location of the concatref genome for mouse subtraction
 ConcatRef_genome:
