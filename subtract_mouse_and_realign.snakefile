@@ -1,6 +1,6 @@
-#unmap_and_subtract_mouse.snakefile
+#subtract_mouse_and_realign.snakefile
 #Anna-Lisa Doebley
-#Template made 2020-04-27
+#Template made 2021-09-24
 #Ha Lab
 #Fred Hutchinson Cancer Research Center
 
