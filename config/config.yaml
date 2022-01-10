@@ -6,18 +6,18 @@
 
 #SELECT CORRECT REFERENCE GENOME
 #if the input is a cram file, specify the reference gnenome
-input_reference_genome: /fh/fast/ha_g/grp/reference/GRCh38/Broad_bundle_hg38/v0/Homo_sapiens_assembly38.fasta
+input_reference_genome: /path/to/Homo_sapiens_assembly38.fasta
 #input_reference_genome: 'null' #for bam file input
 
 #location of the concatref genome for mouse subtraction
 ConcatRef_genome:
-    /fh/fast/ha_g/grp/reference/ConcatRef/fasta/GRCh38_plus_UCSC_mm10_Broad.fa #ConcatRef created by concatenate_reference.py
-    #/fh/fast/ha_g/grp/reference/ConcatRef/fasta/GRCh38_plus_NCBI_GRCm38.fa #option used by Anna-Lisa in her projects
+    /path/to/GRCh38_plus_UCSC_mm10_Broad.fa #ConcatRef created by concatenate_reference.py
+    #/path/to/GRCh38_plus_NCBI_GRCm38.fa #option used by Anna-Lisa in her projects
 
 #reference genome for realignment, with index files in same folder as .fa file
 human_reference_genome:
-    /fh/fast/ha_g/grp/reference/GRCh38/Broad_bundle_hg38/v0/Homo_sapiens_assembly38.fasta #human reference genome
-    #/fh/fast/ha_g/grp/reference/GRCh38/GRCh38.fa #option used by Anna-Lisa in her projects
+    /path/to/Homo_sapiens_assembly38.fasta #human reference genome
+    #/path/to/GRCh38.fa #option used by Anna-Lisa in her projects
 
 tag: UCSC_mm10  #make sure to use the same tag info of ConcatRef
     #NCBI_GRCm38 #option used by Anna-Lisa in her projects
@@ -27,10 +27,10 @@ results_path: results
 
 #SELECT CORRECT POLYMORPHIC SITES
 known_polymorphic_sites1:
-    /fh/fast/ha_g/grp/reference/GRCh38/known_polymorphic_sites/dbsnp_151_hg38_with_chr.All_20180418.vcf.gz
+    /path/to/dbsnp_151_hg38_with_chr.All_20180418.vcf.gz
 
 known_polymorphic_sites2:
-    /fh/fast/ha_g/grp/reference/GRCh38/known_polymorphic_sites/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
+    /path/to/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
 
 #SELECT IF DATA IS WHOLE GENOME SEQUENCES OR NOT (True or False)
 #determines if rule get_wgs_metrics is run
@@ -45,8 +45,8 @@ base_recalibrator_gap_open_penalty: 30.0
 bwa_threads: 4
 
 #tools used.  need to be module loaded first.  see snakemake file for loads
-bwa: /app/software/BWA/0.7.17-foss-2018b/bin/bwa
-samtools: /app/software/SAMtools/1.10-GCCcore-8.3.0/bin/samtools
-java: /app/software/Java/11.0.2/bin/java
-gatk: /app/software/GATK/4.1.4.1-GCCcore-8.3.0-Java-11/gatk
-picard_jar: $EBROOTPICARD/picard.jar
+bwa: /path/to/bwa
+samtools: /path/to/samtools
+java: /path/to/java
+gatk: /path/to/gatk
+picard_jar: /path/to/picard.jar
